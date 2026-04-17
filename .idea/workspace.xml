@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="955931ec-d859-4ed9-bdf7-8f10073529dc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/PythonProject.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/all_graph.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/create_tables_images.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/draw_small_large_read_graph.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/files/experiment_results_publication.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/read_time_datasets.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spark_jobs/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spark_jobs/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spark_jobs/compare_partition_performance.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spark_jobs/compare_small_and_large_performance.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spark_jobs/compare_write_performance.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spark_jobs/create_partitioned_dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spark_jobs/db.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spark_jobs/generate_dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spark_jobs/load_small_dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spark_jobs/pages/analytics.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spark_jobs/pages/patient_monitoring.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spark_jobs/pages/performance.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spark_jobs/pages/predictions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spark_jobs/spark_read_patients.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dockerfile" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="3Awh736pfni8QIc3TgumTuA2GX9" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/rozatadevosyan/PycharmProjects/PythonProject",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "to.speed.mode.migration.done": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/spark_jobs" />
+      <recent name="$PROJECT_DIR$/spark_jobs/pages" />
+      <recent name="$PROJECT_DIR$/files" />
+      <recent name="$PROJECT_DIR$/results" />
+      <recent name="$PROJECT_DIR$/tables" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-ca5e2b39c7df-6e1f45a539f7-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.29346.308" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="955931ec-d859-4ed9-bdf7-8f10073529dc" name="Changes" comment="" />
+      <created>1773509369377</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1773509369377</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>8</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

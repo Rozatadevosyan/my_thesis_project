@@ -1,0 +1,20 @@
+{
+    "categories": [
+        "Non-partitioned Read",
+        "Partitioned Read",
+        "Non-partitioned 2nd Run",
+        "Partitioned 2nd Run"
+    ],
+    "small_times": [
+        2283.81,
+        232.88,
+        165.3,
+        164.56
+    ],
+    "large_times": [
+        137.4,
+        173.81,
+        134.61,
+        154.41
+    ]
+}

@@ -1,0 +1,5 @@
+Run Type,Time (ms)
+Non-partitioned 1st Run,2261.37
+Partitioned 1st Run,274.22
+Non-partitioned 2nd Run,163.4
+Partitioned 2nd Run,172.14

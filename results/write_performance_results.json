@@ -1,0 +1,5 @@
+{
+    "sample_size": 5000,
+    "non_partitioned_write_time_ms": 1551.73,
+    "partitioned_write_time_ms": 2228.55
+}

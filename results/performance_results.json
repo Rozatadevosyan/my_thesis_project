@@ -1,0 +1,32 @@
+{
+    "read_categories": [
+        "Non-partitioned 1st Run",
+        "Partitioned 1st Run",
+        "Non-partitioned 2nd Run",
+        "Partitioned 2nd Run"
+    ],
+    "read_times": [
+        2261.37,
+        274.22,
+        163.4,
+        172.14
+    ],
+    "diagnoses": [
+        "Diabetes",
+        "Hypertension",
+        "Infection",
+        "General Checkup"
+    ],
+    "non_filter_times": [
+        309.54,
+        147.27,
+        137.05,
+        118.72
+    ],
+    "part_filter_times": [
+        150.97,
+        136.75,
+        131.03,
+        113.22
+    ]
+}

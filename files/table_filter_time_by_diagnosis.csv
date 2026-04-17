@@ -1,0 +1,5 @@
+Diagnosis,Non-partitioned (ms),Partitioned (ms),Improvement (ms),Improvement (%)
+Diabetes,309.54,150.97,158.57,51.23
+Hypertension,147.27,136.75,10.52,7.14
+Infection,137.05,131.03,6.02,4.39
+General Checkup,118.72,113.22,5.5,4.63

@@ -1,0 +1,5 @@
+table_name,record_count
+patients,20000
+treatments,69928
+patient_visits,69928
+lab_results,139856
