@@ -1,60 +1,50 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import time
+from pyspark.sql import SparkSession
 
-st.header("⚡ Performance Comparison")
+st.header("⚡ Performance Comparison (Real Measured)")
+
+spark = SparkSession.builder \
+    .appName("Performance Test") \
+    .master("local[*]") \
+    .getOrCreate()
 
 # ---------------------------
-# READ TIME
+# FUNCTION: measure read time
 # ---------------------------
-data = {
-    "Type": [
-        "Non-partitioned Read",
-        "Partitioned Read",
-        "Non-partitioned 2nd",
-        "Partitioned 2nd"
-    ],
-    "Small Dataset": [2235, 212, 156, 166],
-    "Large Dataset": [143, 152, 151, 148]
-}
+def measure_read(path):
+    start = time.time()
+    df = spark.read.parquet(path)
+    df.count()   # force execution
+    end = time.time()
+    return (end - start) * 1000  # ms
 
-df = pd.DataFrame(data)
+# ---------------------------
+# TEST 1: NON-PARTITIONED
+# ---------------------------
+t1 = measure_read("hdfs://localhost:9000/medical_data/patient_visits")
 
-df_melt = df.melt(id_vars="Type", var_name="Dataset", value_name="Time")
+# ---------------------------
+# TEST 2: PARTITIONED
+# ---------------------------
+t2 = measure_read("hdfs://localhost:9000/medical_data/patient_visits_partitioned")
 
-fig1 = px.bar(
-    df_melt,
+# ---------------------------
+# SHOW RESULTS
+# ---------------------------
+data = pd.DataFrame({
+    "Type": ["Non-partitioned", "Partitioned"],
+    "Read Time (ms)": [t1, t2]
+})
+
+fig = px.bar(
+    data,
     x="Type",
-    y="Time",
-    color="Dataset",
-    barmode="group",
-    text="Time",
-    title="Read Time Comparison (ms)"
+    y="Read Time (ms)",
+    text="Read Time (ms)",
+    title="Real HDFS Read Time Comparison"
 )
 
-st.plotly_chart(fig1, use_container_width=True)
-
-# ---------------------------
-# FILTER TIME
-# ---------------------------
-filter_data = {
-    "Diagnosis": ["Diabetes", "Hypertension", "Infection", "General Checkup"],
-    "Non-partitioned": [315, 159, 147, 128],
-    "Partitioned": [167, 155, 130, 117]
-}
-
-df2 = pd.DataFrame(filter_data)
-
-df2_melt = df2.melt(id_vars="Diagnosis", var_name="Type", value_name="Time")
-
-fig2 = px.bar(
-    df2_melt,
-    x="Diagnosis",
-    y="Time",
-    color="Type",
-    barmode="group",
-    text="Time",
-    title="Filter Time by Diagnosis (ms)"
-)
-
-st.plotly_chart(fig2, use_container_width=True)
+st.plotly_chart(fig, use_container_width=True)

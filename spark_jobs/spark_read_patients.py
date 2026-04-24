@@ -4,71 +4,54 @@ os.environ["HADOOP_USER_NAME"] = "root"
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import when, col
 
-spark = (
-    SparkSession.builder
-    .appName("PostgreSQL to HDFS Medical Pipeline")
-    .master("spark://spark-master:7077")
-    .config("spark.hadoop.fs.defaultFS", "hdfs://namenode:9000")
-    .config("spark.hadoop.dfs.client.use.datanode.hostname", "true")
-    .config("spark.hadoop.dfs.datanode.use.datanode.hostname", "true")
-    .config("spark.jars.packages", "org.postgresql:postgresql:42.6.0")
+# ---------------------------
+# Spark Session
+# ---------------------------
+spark = SparkSession.builder \
+    .appName("PostgreSQL to HDFS Medical Pipeline") \
+    .master("local[*]") \
+    .config("spark.hadoop.fs.defaultFS", "hdfs://localhost:9000") \
+    .config("spark.jars.packages", "org.postgresql:postgresql:42.6.0") \
     .getOrCreate()
-)
 
 print("✅ Spark Session Started")
 
 # ---------------------------
-# Read from PostgreSQL
+# JDBC CONFIG
 # ---------------------------
-patients = (
-    spark.read.format("jdbc")
-    .option("url", "jdbc:postgresql://postgres:5432/thesis_db")
-    .option("dbtable", "patients")
-    .option("user", "postgres")
-    .option("password", "postgres123")
-    .option("driver", "org.postgresql.Driver")
-    .load()
-)
+jdbc_url = "jdbc:postgresql://localhost:5440/thesis_db"
 
-visits = (
-    spark.read.format("jdbc")
-    .option("url", "jdbc:postgresql://postgres:5432/thesis_db")
-    .option("dbtable", "patient_visits")
-    .option("user", "postgres")
-    .option("password", "postgres123")
-    .option("driver", "org.postgresql.Driver")
-    .load()
-)
+def read_table(table_name):
+    return spark.read.format("jdbc") \
+        .option("url", jdbc_url) \
+        .option("dbtable", table_name) \
+        .option("user", "postgres") \
+        .option("password", "postgres123") \
+        .option("driver", "org.postgresql.Driver") \
+        .load()
 
-labs = (
-    spark.read.format("jdbc")
-    .option("url", "jdbc:postgresql://postgres:5432/thesis_db")
-    .option("dbtable", "lab_results")
-    .option("user", "postgres")
-    .option("password", "postgres123")
-    .option("driver", "org.postgresql.Driver")
-    .load()
-)
-
-treatments = (
-    spark.read.format("jdbc")
-    .option("url", "jdbc:postgresql://postgres:5432/thesis_db")
-    .option("dbtable", "treatments")
-    .option("user", "postgres")
-    .option("password", "postgres123")
-    .option("driver", "org.postgresql.Driver")
-    .load()
-)
+# ---------------------------
+# READ TABLES (FIXED)
+# ---------------------------
+patients = read_table("patients")
+visits = read_table("patient_visits")
+labs = read_table("lab_results")
+treatments = read_table("treatments")
 
 print("✅ Data loaded from PostgreSQL")
+
+patients.printSchema()
+visits.printSchema()
+
 print("Patients count:", patients.count())
 print("Visits count:", visits.count())
 print("Lab results count:", labs.count())
 print("Treatments count:", treatments.count())
 
 # ---------------------------
-# Analytics
+# ANALYTICS
 # ---------------------------
+
 patients_by_gender = patients.groupBy("gender").count()
 
 patients_by_age_group = patients.withColumn(
@@ -91,57 +74,46 @@ avg_vitals_by_diagnosis = visits.groupBy("diagnosis").avg(
 )
 
 # ---------------------------
-# Save raw tables to HDFS
+# SAVE TO HDFS
 # ---------------------------
-patients.write \
-    .mode("overwrite") \
-    .option("dfs.replication", "1") \
-    .parquet("hdfs://namenode:9000/medical_data/patients")
 
-visits.write \
-    .mode("overwrite") \
-    .option("dfs.replication", "1") \
-    .parquet("hdfs://namenode:9000/medical_data/patient_visits")
+patients.write.mode("overwrite").parquet(
+    "hdfs://localhost:9000/medical_data/patients"
+)
 
-labs.write \
-    .mode("overwrite") \
-    .option("dfs.replication", "1") \
-    .parquet("hdfs://namenode:9000/medical_data/lab_results")
+visits.write.mode("overwrite").parquet(
+    "hdfs://localhost:9000/medical_data/patient_visits"
+)
 
-treatments.write \
-    .mode("overwrite") \
-    .option("dfs.replication", "1") \
-    .parquet("hdfs://namenode:9000/medical_data/treatments")
+labs.write.mode("overwrite").parquet(
+    "hdfs://localhost:9000/medical_data/lab_results"
+)
 
-# ---------------------------
-# Save analytics to HDFS
-# ---------------------------
-patients_by_gender.write \
-    .mode("overwrite") \
-    .option("dfs.replication", "1") \
-    .parquet("hdfs://namenode:9000/medical_data/patients_by_gender")
+treatments.write.mode("overwrite").parquet(
+    "hdfs://localhost:9000/medical_data/treatments"
+)
 
-patients_by_age_group.write \
-    .mode("overwrite") \
-    .option("dfs.replication", "1") \
-    .parquet("hdfs://namenode:9000/medical_data/patients_by_age_group")
+patients_by_gender.write.mode("overwrite").parquet(
+    "hdfs://localhost:9000/medical_data/patients_by_gender"
+)
 
-visits_by_diagnosis.write \
-    .mode("overwrite") \
-    .option("dfs.replication", "1") \
-    .parquet("hdfs://namenode:9000/medical_data/visits_by_diagnosis")
+patients_by_age_group.write.mode("overwrite").parquet(
+    "hdfs://localhost:9000/medical_data/patients_by_age_group"
+)
 
-visits_by_department.write \
-    .mode("overwrite") \
-    .option("dfs.replication", "1") \
-    .parquet("hdfs://namenode:9000/medical_data/visits_by_department")
+visits_by_diagnosis.write.mode("overwrite").parquet(
+    "hdfs://localhost:9000/medical_data/visits_by_diagnosis"
+)
 
-avg_vitals_by_diagnosis.write \
-    .mode("overwrite") \
-    .option("dfs.replication", "1") \
-    .parquet("hdfs://namenode:9000/medical_data/avg_vitals_by_diagnosis")
+visits_by_department.write.mode("overwrite").parquet(
+    "hdfs://localhost:9000/medical_data/visits_by_department"
+)
 
-print("✅ Raw and analytics datasets saved to HDFS")
+avg_vitals_by_diagnosis.write.mode("overwrite").parquet(
+    "hdfs://localhost:9000/medical_data/avg_vitals_by_diagnosis"
+)
+
+print("✅ All datasets saved to HDFS")
 
 spark.stop()
 print("🎯 Pipeline completed successfully")

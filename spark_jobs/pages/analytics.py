@@ -1,30 +1,31 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from db import get_connection
+from pyspark.sql import SparkSession
 
 st.set_page_config(layout="wide")
 
+# ---------------------------
+# SPARK SESSION (HDFS)
+# ---------------------------
+spark = SparkSession.builder \
+    .appName("Streamlit HDFS Analytics") \
+    .master("local[*]") \
+    .getOrCreate()
+
+# ---------------------------
+# LOAD FROM HDFS
+# ---------------------------
 @st.cache_data
 def load_data():
-    conn = get_connection()
-
-    query = """
-    SELECT 
-        p.age,
-        v.diagnosis
-    FROM patients p
-    JOIN patient_visits v
-    ON p.patient_id = v.patient_id
-    """
-
-    df = pd.read_sql(query, conn)
-    conn.close()
-    return df
+    df = spark.read.parquet(
+        "hdfs://localhost:9000/medical_data/patient_visits"
+    )
+    return df.toPandas()   # convert to pandas for Streamlit
 
 df = load_data()
 
-st.title("📊Analytics")
+st.title("📊 Analytics (HDFS Data)")
 
 # ---------------------------
 # AGE GROUPS
